@@ -1,0 +1,24 @@
+<div class="login">
+    <form (ngSubmit)="check()">
+        <div>
+            <label for="username">نام کاربری</label>
+            <input [(ngModel)]="loginForm.username" id="username" name="username" type="text">
+        </div>
+        <div>
+            <label for="password">کلید واژه</label>
+            <input [(ngModel)]="loginForm.password" id="password" name="username" type="password">
+        </div>
+        <div>
+            <input [(ngModel)]="loginForm.username" id="keepMe" name="password" type="checkbox">
+        <label for="keepMe">من را به خاطر بسپار</label>
+        </div>
+        <div>
+            <button [disabled]="loginForm.username=='' ||  loginForm.password=='' "  type="submit">ورود</button>
+        </div>
+        @if (meessage!=='') {
+            <div>
+                {{meessage}}
+            </div>
+        }
+    </form>
+</div>
