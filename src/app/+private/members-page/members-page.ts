@@ -1,40 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MemberService } from './member-service';
 
 @Component({
   selector: 'app-members-page',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './members-page.html',
   styleUrl: './members-page.scss',
 })
-export class MembersPage {
-  data: MemberItem[] = [
-    {
-      id: 1,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 9054032565
-    },
-
-    {
-      id: 2,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 904858658
-    },
-
-    {
-      id: 3,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 904858658
-    },
-  ];
+export class MembersPage implements OnInit {
+  save() {
+    this.memberService.add(this.item);
+    this.dataRefresh();
+    this.state = 'list';
+  }
+  ngOnInit(): void {
+    this.dataRefresh();
+  }
+  data: MemberItem[] = [];
+  item: MemberItem = {
+    id: 0,
+    name: '',
+    lastName: '',
+    codeMeli: 0,
+    phoneNumber: 0
+  }
+  memberService = inject(MemberService);
+  state: string = 'list';
+  dataRefresh() {
+    this.data = this.memberService.list();
+  }
   add() {
-    this.data.push({id:6,name:'zse', lastName:'sdf',codeMeli:25896325,phoneNumber:3054025856});
+    this.state = 'add';
+    this.item= {
+    id: 0,
+    name: '',
+    lastName: '',
+    codeMeli: 0,
+    phoneNumber: 0
+  }
+}
+  cancel() {
+    this.state = 'list';
   }
 }
 
@@ -44,6 +51,6 @@ export interface MemberItem {
   name: string;
   lastName: string;
   codeMeli: number;
-  phoneNumber?: number;
+  phoneNumber: number;
 
 }

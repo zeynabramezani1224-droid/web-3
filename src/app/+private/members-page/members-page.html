@@ -1,8 +1,9 @@
+@if(state=='list'){
 <button class="primary" (click)="add()">افزودن عضو جدید➕</button>
 <table>
     <thead>
         <tr>
-
+            <th>کد عضویت</th>
             <th>نام</th>
             <th>نام خانوادگی</th>
             <th>کد ملی</th>
@@ -11,8 +12,6 @@
     </thead>
     <tbody>
         @for(item of data; track $index){
-
-
         <tr>
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
@@ -26,3 +25,27 @@
             }
     </tbody>
 </table>
+}
+@else{
+<form (ngsubmit)="save()">
+    <div>
+        <input [(ngModel)]="item.id" id="id" name="id" type="number" placeholder="شناسه">
+    </div>
+    <div>
+        <input [(ngModel)]="item.name" id="name" name="name" type="text" placeholder="نام">
+    </div>
+    <div>
+        <input [(ngModel)]="item.lastName" id="lastName" name="lastName" type="text" placeholder="نام خانوادگی">
+    </div>
+    <div>
+        <input [(ngModel)]="item.codeMeli" id="codeMeli" name="codeMeli" type="text" placeholder="کد ملی">
+    </div>
+    <div>
+        <input [(ngModel)]="item.phoneNumber" id="phoneNumber" name="phoneNumber" type="text" placeholder="شماره تماس">
+    </div>
+    <div>
+        <button class="primary" type="submit">تایید</button>
+        <button class="primary" type="button" (click)="cancel()">انصراف</button>
+    </div>
+</form>
+}

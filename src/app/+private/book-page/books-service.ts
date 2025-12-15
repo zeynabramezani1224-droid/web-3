@@ -6,10 +6,10 @@ import { BookItem } from './book-page';
 })
 export class BooksService {
    private data:BookItem[]=[
-    {id:1,title:'c+',writer:'خودم',publisher:'خودش',price:80000},
-    {id:2,title:'c+',writer:'خودم',publisher:'خودش',price:80000},
-    {id:3,title:'c+',writer:'خودم',publisher:'خودش',price:80000},
-    {id:4,title:'c+',writer:'خودم',publisher:'خودش',price:80000} 
+    {id:1,title:'بادبادک باز',writer:'جوجو مویز',publisher:'جوجو مویز',price:80000},
+    {id:2,title:'پایتون',writer:'حریریان',publisher:'نبوی',price:10000},
+    {id:3,title:'c+',writer:'نبوی',publisher:'استاد عاشورلو',price:870000},
+    {id:4,title:'c++',writer:'نبوی',publisher:'استاد عاشورلو',price:870000} 
   ];
   //تابع ایست که لیست کتاب هارا تحویل میدهد
   //فعلا با داده های ماک کار میند اما در آینده باید از بک اند استفاده کند

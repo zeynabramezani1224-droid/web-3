@@ -20,9 +20,7 @@ export class BookPage implements OnInit {
   ngOnInit(): void {
     this.dataRefresh();
   }
-
-
-
+  
   data: BookItem[] = [];
   item: BookItem = {
     id: 0,
