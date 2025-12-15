@@ -1,1 +1,28 @@
-<p>members-page works!</p>
+<button class="primary" (click)="add()">افزودن عضو جدید➕</button>
+<table>
+    <thead>
+        <tr>
+
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>کد ملی</th>
+            <th>شماره تماس</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(item of data; track $index){
+
+
+        <tr>
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.lastName}}</td>
+            <td>{{item.codeMeli}}</td>
+            <td>{{item.phoneNumber}}</td>
+            <td>
+                <button class="primary">ویرایش</button>
+                <button class="primary">حذف</button>
+            </td>
+            }
+    </tbody>
+</table>
