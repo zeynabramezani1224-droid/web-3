@@ -11,8 +11,15 @@ import { Title } from '@angular/platform-browser';
 })
 export class BookPage implements OnInit {
   save() {
-
-    this.booksService.add(this.item);
+    if (this.state == 'add') {
+      this.booksService.add(this.item);
+    }
+    else if (this.state == 'edit') {
+      this.booksService.edit(this.item);
+    }
+    else if (this.state == 'remove') {
+      this.booksService.remove(this.item);
+    }
     this.dataRefresh();
     this.state = 'list';
   }
@@ -20,7 +27,7 @@ export class BookPage implements OnInit {
   ngOnInit(): void {
     this.dataRefresh();
   }
-  
+
   data: BookItem[] = [];
   item: BookItem = {
     title: '',
@@ -35,16 +42,20 @@ export class BookPage implements OnInit {
   }
   add() {
     this.state = 'add';
-    this.item= {
+    this.item = {
       title: '',
       writer: '',
       publisher: ''
     }
   }
-  edit(){
+  edit(book: BookItem) {
+    this.item = { ...book };
     this.state = 'edit';
   }
-
+  remove(book: BookItem) {
+    this.item = { ...book };
+    this.state = 'remove';
+  }
   cancel() {
     this.state = 'list';
   }
