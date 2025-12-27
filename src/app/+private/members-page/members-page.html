@@ -19,33 +19,48 @@
             <td>{{item.codeMeli}}</td>
             <td>{{item.phoneNumber}}</td>
             <td>
-                <button class="primary">ویرایش</button>
-                <button class="primary">حذف</button>
+                <button (click)="edit(item)" class="primary">ویرایش</button>
+                <button (click)="remove(item)" class="primary">حذف</button>
             </td>
             }
     </tbody>
 </table>
 }
 @else{
+@if (state=='remove') {
+<div class="alert">
+    آیا از حذف کتاب اطمینان دارید؟
+</div>
+}
+<div>
+
+</div>
 <form (ngsubmit)="save()">
     <div>
-        <input [(ngModel)]="item.id" id="id" name="id" type="number" placeholder="شناسه">
-    </div>
-    <div>
-        <input [(ngModel)]="item.name" id="name" name="name" type="text" placeholder="نام">
-    </div>
-    <div>
-        <input [(ngModel)]="item.lastName" id="lastName" name="lastName" type="text" placeholder="نام خانوادگی">
-    </div>
-    <div>
-        <input [(ngModel)]="item.codeMeli" id="codeMeli" name="codeMeli" type="text" placeholder="کد ملی">
-    </div>
-    <div>
-        <input [(ngModel)]="item.phoneNumber" id="phoneNumber" name="phoneNumber" type="text" placeholder="شماره تماس">
-    </div>
-    <div>
-        <button class="primary" type="submit">تایید</button>
-        <button class="primary" type="button" (click)="cancel()">انصراف</button>
+        <div>
+            <input [disabled]="state=='edit' || state=='remove'" [class.ghofl]="state=='edit'" [(ngModel)]="item.id"
+                id="id" name="id" type="number" placeholder="شناسه">
+        </div>
+        <div>
+            <input [disabled]="state=='remove'" [(ngModel)]="item.name" id="name" name="name" type="text"
+                placeholder="نام">
+        </div>
+        <div>
+            <input [disabled]="state=='remove'" [(ngModel)]="item.lastName" id="lastName" name="lastName" type="text"
+                placeholder="نام خانوادگی">
+        </div>
+        <div>
+            <input [disabled]="state=='remove'" [(ngModel)]="item.codeMeli" id="codeMeli" name="codeMeli" type="text"
+                placeholder="کد ملی">
+        </div>
+        <div>
+            <input [disabled]="state=='remove'" [(ngModel)]="item.phoneNumber" id="phoneNumber" name="phoneNumber"
+                type="text" placeholder="شماره تماس">
+        </div>
+        <div>
+            <button class="primary" type="submit">تایید</button>
+            <button class="primary" type="button" (click)="cancel()">انصراف</button>
+        </div>
     </div>
 </form>
 }

@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MemberService } from './member-service';
+import { BookItem } from '../book-page/book-page';
 
 @Component({
   selector: 'app-members-page',
@@ -10,7 +11,15 @@ import { MemberService } from './member-service';
 })
 export class MembersPage implements OnInit {
   save() {
-    this.memberService.add(this.item);
+    if (this.state == 'add') {
+      this.memberService.add(this.item);
+    }
+    else if (this.state == 'edit') {
+      this.memberService.edit(this.item)
+    }
+     else if (this.state == 'remove') {
+      this.memberService.remove(this.item)
+    }
     this.dataRefresh();
     this.state = 'list';
   }
@@ -32,14 +41,20 @@ export class MembersPage implements OnInit {
   }
   add() {
     this.state = 'add';
-    this.item= {
-    id: 0,
-    name: '',
-    lastName: '',
-    codeMeli: 0,
-    phoneNumber: 0
+    this.item = {
+      name: '',
+      lastName: '',
+      codeMeli: 0,
+    }
   }
-}
+  edit(member: MemberItem) {
+    this.item = {...member};
+    this.state = 'edit';
+  }
+  remove(member: MemberItem) {
+    this.item = {...member};
+    this.state = 'remove';
+  }
   cancel() {
     this.state = 'list';
   }
@@ -47,10 +62,10 @@ export class MembersPage implements OnInit {
 
 
 export interface MemberItem {
-  id: number;
+  id?: number;
   name: string;
   lastName: string;
   codeMeli: number;
-  phoneNumber: number;
+  phoneNumber?: number;
 
 }
