@@ -1,66 +1,50 @@
-@if(state=='list'){
-<button class="primary" (click)="add()">افزودن عضو جدید➕</button>
-<table>
-    <thead>
-        <tr>
-            <th>کد عضویت</th>
-            <th>نام</th>
-            <th>نام خانوادگی</th>
-            <th>کد ملی</th>
-            <th>شماره تماس</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for(item of data; track $index){
-        <tr>
-            <td>{{item.id}}</td>
-            <td>{{item.name}}</td>
-            <td>{{item.lastName}}</td>
-            <td>{{item.codeMeli}}</td>
-            <td>{{item.phoneNumber}}</td>
-            <td>
-                <button (click)="edit(item)" class="primary">ویرایش</button>
-                <button (click)="remove(item)" class="primary">حذف</button>
-            </td>
-            }
-    </tbody>
-</table>
-}
-@else{
-@if (state=='remove') {
-<div class="alert">
-    آیا از حذف کتاب اطمینان دارید؟
-</div>
-}
-<div>
-
-</div>
-<form (ngsubmit)="save()">
+<my-crud [mystate]="state" 
+[columns]="memberColumns"
+ [mydata]="data" 
+ (onEdit)="edit($event)" 
+ (onRemove)="remove($event)"
+    (onCancel)="cancel()" 
+    (onAdd)="add()" 
+    (onSave)="save()">
     <div>
-        <div>
-            <input [disabled]="state=='edit' || state=='remove'" [class.ghofl]="state=='edit'" [(ngModel)]="item.id"
-                id="id" name="id" type="number" placeholder="شناسه">
-        </div>
-        <div>
-            <input [disabled]="state=='remove'" [(ngModel)]="item.name" id="name" name="name" type="text"
-                placeholder="نام">
-        </div>
-        <div>
-            <input [disabled]="state=='remove'" [(ngModel)]="item.lastName" id="lastName" name="lastName" type="text"
-                placeholder="نام خانوادگی">
-        </div>
-        <div>
-            <input [disabled]="state=='remove'" [(ngModel)]="item.codeMeli" id="codeMeli" name="codeMeli" type="text"
-                placeholder="کد ملی">
-        </div>
-        <div>
-            <input [disabled]="state=='remove'" [(ngModel)]="item.phoneNumber" id="phoneNumber" name="phoneNumber"
-                type="text" placeholder="شماره تماس">
-        </div>
-        <div>
-            <button class="primary" type="submit">تایید</button>
-            <button class="primary" type="button" (click)="cancel()">انصراف</button>
-        </div>
+        <input [disabled]="state=='edit' || state=='remove'" 
+        [class.ghofl]="state=='edit'" 
+        [(ngModel)]="item.id" 
+        id="id"
+        name="id" 
+        type="number"
+        placeholder="شناسه">
     </div>
-</form>
-}
+    <div>
+        <input [disabled]="state=='remove'"
+         [(ngModel)]="item.name"
+          id="name" name="name" 
+          type="text"
+          placeholder="نام">
+    </div>
+    <div>
+        <input [disabled]="state=='remove'" 
+        [(ngModel)]="item.lastName"
+         id="lastName"
+          name="lastName"
+           type="text"
+            placeholder="نام خانوادگی">
+    </div>
+    <div>
+        <input [disabled]="state=='remove'" 
+        [(ngModel)]="item.CodeMeli"
+         id="CodeMeli"
+          name="CodeMeli"
+           type="text"
+            placeholder="کد ملی">
+    </div>
+    <div>
+        <input [disabled]="state=='remove'"
+         [(ngModel)]="item.phoneNumber"
+          id="phoneNumber"
+          name="phoneNumber"
+          type="text" 
+         placeholder="شماره تماس">
+    </div>
+
+</my-crud>

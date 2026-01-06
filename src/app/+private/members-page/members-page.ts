@@ -1,71 +1,50 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Injectable, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MemberService } from './member-service';
 import { BookItem } from '../book-page/book-page';
+import { Thing } from '../../+shared/+base/base-thing';
+import { baseCudPage } from '../../+shared/+base/base-crud-page';
+import { BaseService } from '../../+shared/+base/base-service';
+import { BaseCrudComponent, column } from "../../+shared/+base/base-crud-component/base-crud-component";
 
 @Component({
   selector: 'app-members-page',
-  imports: [FormsModule],
+  imports: [FormsModule, BaseCrudComponent],
   templateUrl: './members-page.html',
   styleUrl: './members-page.scss',
 })
-export class MembersPage implements OnInit {
-  save() {
-    if (this.state == 'add') {
-      this.memberService.add(this.item);
-    }
-    else if (this.state == 'edit') {
-      this.memberService.edit(this.item)
-    }
-     else if (this.state == 'remove') {
-      this.memberService.remove(this.item)
-    }
-    this.dataRefresh();
-    this.state = 'list';
-  }
+
+export class MembersPage extends baseCudPage<MemberItem> implements OnInit{
   ngOnInit(): void {
+      this.item={
+      name:'',
+      lastName:'',
+       CodeMeli:'',
+    phoneNumber:''
+    };
     this.dataRefresh();
   }
-  data: MemberItem[] = [];
-  item: MemberItem = {
-    id: 0,
-    name: '',
-    lastName: '',
-    codeMeli: 0,
-    phoneNumber: 0
-  }
-  memberService = inject(MemberService);
-  state: string = 'list';
-  dataRefresh() {
-    this.data = this.memberService.list();
-  }
-  add() {
-    this.state = 'add';
-    this.item = {
-      name: '',
-      lastName: '',
-      codeMeli: 0,
+  override dataService =inject(MemberService);
+  override addprepair(): void {
+    this.item={
+      name:'',
+      lastName:'',
+    CodeMeli:'',
+    phoneNumber:''
     }
   }
-  edit(member: MemberItem) {
-    this.item = {...member};
-    this.state = 'edit';
-  }
-  remove(member: MemberItem) {
-    this.item = {...member};
-    this.state = 'remove';
-  }
-  cancel() {
-    this.state = 'list';
-  }
+  memberColumns:column[]=[
+    {field:'id',title:'کد عضویت'},
+    {field:'name',title:'نام'},
+    {field:'lastname',title:'نام خانوادگی'},
+    {field:'Codemeli',title:'کد ملی'},
+    {field:'phonenumber',title:'شماره تماس'}
+  ]
 }
 
-
-export interface MemberItem {
-  id?: number;
+export interface MemberItem extends Thing {
   name: string;
   lastName: string;
-  codeMeli: number;
-  phoneNumber?: number;
-
+  CodeMeli: string;
+  phoneNumber: string;
 }

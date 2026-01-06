@@ -1,54 +1,21 @@
 import { Injectable } from '@angular/core';
 import { MemberItem } from './members-page';
 import { BookItem } from '../book-page/book-page';
+import { BaseService } from '../../+shared/+base/base-service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class MemberService {
-  private data: MemberItem[] = [
-    {
-      id: 1,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 9054032565
-    },
-
-    {
-      id: 2,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 904858658
-    },
-
-    {
-      id: 3,
-      name: 'zeynab',
-      lastName: 'ramezani',
-      codeMeli: 935845112,
-      phoneNumber: 904858658
-    },
+export class MemberService extends BaseService<MemberItem> {
+  override data: MemberItem[] = [
+    { id: 1000, name: 'maryam', lastName: 'ahmadi', CodeMeli:'369855', phoneNumber:'03030252'},
+    { id: 1001, name: 'zahra', lastName: 'ramezani', CodeMeli: '3855964', phoneNumber: '989658' },
+    { id: 1002, name: 'leila', lastName: 'zamani', CodeMeli: '38598464', phoneNumber: '989658' },
   ];
-
-  list() {
-    return [...this.data];
+  override update(destination: MemberItem, source: MemberItem): void {
+    destination.name = source.name;
+    destination.lastName =source.lastName;
   }
-
-  add(item: MemberItem) {
-    this.data.push(item);
-  }
-  edit(item: MemberItem) {
-    const index = this.data.findIndex(b => b.id != item.id);
-    if (index != -1) {
-      this.data[index].name = item.name;
-      this.data[index].lastName = item.lastName;
-      this.data[index].codeMeli = item.codeMeli;
-      this.data[index].phoneNumber = item.phoneNumber;
-    }
-  }
-remove(item: MemberItem){
-this.data=this.data.filter(b=>b.id!=item.id);
 }
-}
+
+
